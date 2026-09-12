@@ -42,56 +42,31 @@ The system:
 
 **Core**
 
-* **AWS Strands Agents SDK** (Python) for the root agent, `@tool` bindings, and multi agent orchestration.
+* **AWS Strands Agents SDK (Python)** for the six specialist agents, model binding and instrumentation.
 * **Amazon Bedrock** via the Converse API, using AWS SigV4 authentication. Amazon Nova 2 Lite is the default for every agent. In a controlled comparison it verified 96 to 99 percent of claims against 68 to 84 percent for Nova Lite, and it was faster and cheaper. Anthropic Claude models work through the same interface on an account with Anthropic access.
 
-**Tracing (optional)**
+**Deployment**
 
-Tracing stays off unless a collector is reachable. The OTLP **HTTP** exporter is used, so the
-endpoint must never be the gRPC port 4317.
+* **Amazon Bedrock AgentCore Runtime** hosts the pipeline as an ARM64 container. The dashboard runs locally and invokes it with InvokeAgentRuntime over SigV4.
+* **Amazon S3** holds the SQLite blackboard. An AgentCore session starts on a blank disk, so state is pulled at the start of every action and pushed back at the end.
+* **EventBridge Scheduler** invokes the runtime at 07:00 Europe/Dublin.
+* **CodeBuild and ECR** build and store the image; the image tag is the content hash of the packaged source.
+* **CloudWatch** carries the run narrative, a dashboard and GenAI Observability.
 
-Arize Phoenix is the recommended collector, since it understands LLM and agent spans and shows
-prompts, responses and token counts per agent call rather than generic timing bars:
+**Email Service**
 
-```bash
-docker run --rm -p 6006:6006 arizephoenix/phoenix
-```
-
-```
-OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:6006
-```
-
-The UI is at `http://localhost:6006`. Jaeger also works, on `http://localhost:4318` with its UI
-at `16686`, but it renders every span generically and its UI is light only, so a browser forcing
-dark mode makes parts of it unreadable.
-
-With no collector running, EaseApply prints one line and carries on rather than retrying the
-export forever.
-
-Strands records prompts, including the resume, as span events, so point tracing at a local
-collector only. Each agent is named, `a0_ranking` through `a5_tailor`, so a trace shows which
-agent made each call, and one root span groups everything a run did.
-
-**Supporting**
-
-* `pipeline.py` holds the deterministic control flow.
-* `core/store.py` manages the SQLite blackboard, the single place shared state lives.
-* `app.py` serves the Gradio interface.
-* `httpx` handles asynchronous network calls to ATS boards.
-* **Strands telemetry** (OpenTelemetry) for tracing and funnel metrics locally, and **CloudWatch GenAI Observability** when hosted on AgentCore.
-* **Amazon SES** (or plain SMTP) for the daily digest.
-
+* **Amazon SES** sends the daily digest. Sender and recipient are the same verified address, so it works inside the SES sandbox with no production access request. The runtime's execution role carries `ses:SendEmail` and `ses:SendRawEmail`, and nothing else.
 ---
 
 ## 2. Multi-Agent Architecture and Orchestration Patterns
 
-### 2.1 Orchestration Design: Hybrid Multi-Agent Pattern
+### 2.1 Orchestration Design: Workflow Pattern
 
-EaseApply combines three Strands patterns rather than relying on one.
+EaseApply follows the Workflow pattern: a fixed sequence, no cycles, every dependency known ahead of time.
 
-**Deterministic workflow (DAG pattern).** `pipeline.py` executes the stages as a directed acyclic graph in a fixed order. Every branch in the system is a code level predicate, seventeen in total, covering things like cache hit or miss, platform dispatch, filter pass or drop, and validator accept or reject. None of them is decided by a model. This is what makes an unattended 7am run safe.
+**Deterministic workflow.** `pipeline.py` is the control plane. It executes the stages as a directed acyclic graph in a fixed order, calling each agent directly. Every branch in the system is a code level predicate, seventeen in total, covering things like cache hit or miss, platform dispatch, filter pass or drop, and validator accept or reject. None of them is decided by a model, and nothing lets a model choose what runs next. This is what makes an unattended 7am run safe.
 
-**Agent as tool pattern.** The root orchestrator `A0` registers each specialist agent as a `@tool` wrapper, which gives the AgentCore deployment an idiomatic SDK entrypoint. Locally, `pipeline.py` calls the agents directly, and one root span per run groups every agent call into a single trace. `A0` itself performs exactly one inference, at the end of the run, recommending which roles to apply to first over results that have already been verified. Its reasoning is safe at that point because every fact available to it has passed a validator.
+**One terminal inference.** `A6` runs exactly once, at the end, over a shortlist that code has already ordered by location and then fit. Its reasoning is safe at that point because every fact available to it has passed a validator.
 
 **Parallel worker swarm.** The fit scoring stage partitions surviving postings into batches of five and runs them concurrently. The batches are independent, so a failure in one does not affect the others, and horizontal scaling is just a matter of batch count.
 
@@ -101,12 +76,12 @@ Agents never message each other. All communication passes through typed objects 
 
 | Agent | Pattern | Responsibility |
 |---|---|---|
-| **A0** Root Orchestrator | Root Strands agent | Registers all tools. Runs one terminal inference over the verified shortlist, which code has already ordered by location and then fit, and recommends which roles to apply to first. |
-| **A1** Resume Profiler | Agent as tool | Extracts skills, seniority, and intent from the resume and intake form into a structured JSON profile. Stated intent from the form overrides anything inferred from the resume. |
-| **A2** Sourcing Strategist | Agent as tool | Proposes roughly 40 employers likely to be hiring for the role that are not already on file, so each run widens coverage. |
+| **A1** Resume Profiler | Workflow step | Extracts skills, seniority, and intent from the resume and intake form into a structured JSON profile. Stated intent from the form overrides anything inferred from the resume. |
+| **A2** Sourcing Strategist | Workflow step | Proposes roughly 40 employers likely to be hiring for the role that are not already on file, so each run widens coverage. |
 | **A3** Fit Scorer Swarm | Parallel swarm | Evaluates batches of five postings concurrently. Proposes a fit score, matched and missing skills, and a verbatim quote supporting every claim. |
 | **A4** Gap Synthesist | Map reduce | Code counts the missing skills across the stronger matches, one vote per employer, and the agent writes a short note on each gap plus advice on which to close first. |
-| **A5** Tailoring Agent | Agent as tool | Rewrites resume lines for a chosen job as before, after and why. Each rewrite must quote a line that exists in the resume, and any tool the resume never mentions is flagged. Runs on demand. |
+| **A5** Tailoring Agent | Workflow step | Rewrites resume lines for a chosen job as before, after and why. Each rewrite must quote a line that exists in the resume, and any tool the resume never mentions is flagged. Runs on demand. |
+| **A6** Ranker | Workflow step | Runs one terminal inference over the verified shortlist, which code has already ordered by location and then fit, and recommends which roles to apply to first. It explains the ranking; it does not compute it. |
 
 ---
 
@@ -114,7 +89,7 @@ Agents never message each other. All communication passes through typed objects 
 
 ### 3.1 Architectural Diagram
 
-![EaseApply system architecture](public/resources/system_architecture.png)
+![EaseApply system architecture](public/resources/Easeapply_system_architecture.png)
 
 
 ### 3.2 End-to-End Processing Pipeline
@@ -127,9 +102,11 @@ Agents never message each other. All communication passes through typed objects 
 
 **Phase 4: Scoring Swarm.** Survivors are partitioned into batches of five and scored concurrently by `A3`. The scorer reads the requirements section of each posting rather than its opening, and job text arrives fenced as data so a posting cannot instruct the model. Each result carries a fit score plus quoted evidence spans for every matched and missing skill.
 
-**Phase 5: Synthesis and Orchestration.** Verified scores flow to `A4` for cross portfolio gap analysis and to `A0`, which recommends which roles to apply to first. `A5` runs on demand when the user asks for tailored rewrites on a specific job.
+**Phase 5: Synthesis and Recommendation.** Verified scores flow to `A4` for cross portfolio gap analysis. Code then orders the shortlist by location proximity and fit, and `A6` runs a single inference over that finished order to recommend which roles to apply to first. `A5` runs on demand when the user asks for tailored rewrites on a specific job.
 
-**Phase 6: Blackboard Persistence.** Verified results are written to SQLite. Postings carry a `first_seen` timestamp, which is what the daily digest diffs against. Run level metrics including token count and cost are recorded alongside.
+**Phase 6: Blackboard Persistence.** Verified results are written to SQLite. Postings carry a `first_seen` timestamp, and scored postings are what the daily run diffs against. Run level metrics including token count and cost are recorded alongside.
+
+**Phase 7: Persistence Beyond the Session.** An AgentCore session starts on a blank disk, so the blackboard is pulled from S3 at the start of every action and pushed back at the end. Before upload, descriptions are dropped for postings that were never scored, since every run refetches them, which holds the file at roughly 7 MB instead of 150 MB. The dashboard invokes the runtime over SigV4 and streams progress events back, and EventBridge invokes the same endpoint each morning with no human present.
 
 ### 3.3 Repository Layout
 
@@ -138,20 +115,25 @@ easeapply/
 ├── app.py                  # Gradio UI: intake form + results. --demo flag
 ├── pipeline.py             # deterministic outer loop, calls agents in order
 ├── digest.py               # daily entrypoint: diff, score new, email
+├── agentcore_app.py        # AgentCore entrypoint: run, daily, email, tailor
+├── Dockerfile              # ARM64 runtime image
+├── requirements-runtime.txt  # what the container installs, no UI or test deps
+├── agentcore/              # agentcore.json, IAM policy, generated CDK project
 ├── agents/
-│   ├── orchestrator.py     # root Strands agent, tool registration
+│   ├── ranker.py           # one inference over the ordered shortlist
 │   ├── prompts.py          # loads prompts/*.md with version metadata
 │   ├── profiler.py         # form + resume → profile vector
 │   ├── sourcer.py          # profile → company candidates
 │   ├── scorer.py           # posting batch → scores + evidence spans
 │   ├── synthesist.py       # all scores → cross-job gap patterns
 │   └── tailor.py           # job + resume → before, after and why rewrites
-├── prompts/                # one versioned system prompt per agent, a0 to a5
+├── prompts/                # one versioned system prompt per agent, a1 to a6
 ├── sources/
 │   ├── ats.py              # fetchers + per-platform normalisers
 │   ├── slugs.py            # slug generation, probing, caching
 │   └── syndication.py      # open job API cross-check
 ├── core/
+│   ├── llm.py              # model choice, JSON guarded call, budget, fencing
 │   ├── models.py           # Posting, Profile, Score dataclasses
 │   ├── store.py            # SQLite schema + queries
 │   ├── filters.py          # hard constraint rules from the form
@@ -165,14 +147,46 @@ easeapply/
 │   └── demo.db             # pre-warmed cache for offline demo
 ├── tests/                  # verification, filter and store checks
 ├── public/
-|   ├── THIRD_PARTY.md
-|   ├── resources
-|   │   └── system_architecture.png    #architecture diagram
+│   ├── THIRD_PARTY.md      # third party service declaration
+│   └── resources/
+│       ├── system_architecture.png    # architecture diagram
+│       └── screenshot_*.png           # dashboard, CloudWatch, trace, email
 ├── requirements.txt
 ├── .env.example
-├── LICENSE                 
+├── LICENSE
 └── README.md
 ```
+### 3.4 Screenshots
+
+**Dashboard, intake and live run**
+
+![Intake form and live run](public/resources/screenshot_dashboard_run.png)
+
+Set up once: resume, target role, level, work mode, locations separated by semicolons, and any extra instructions. The live log streams back from the runtime in AWS.
+
+**Verified results**
+
+![Verified results](public/resources/screenshot_results.png)
+
+Matches ordered by location first, then fit. Each row carries its verification rate, with `new` and `gem` badges.
+
+**CloudWatch dashboard**
+
+![CloudWatch dashboard](public/resources/screenshot_cloudwatch.png)
+
+Nova invocations, tokens, model and runtime latency, errors, and the run narrative rendered from the runtime's own logs.
+
+**Trace**
+
+![Run trajectory](public/resources/screenshot_trace.png)
+
+One run as a trajectory: `POST /invocations`, then each agent span, with the scorer fanned out across batches.
+
+**Digest email**
+
+![Digest email](public/resources/screenshot_email.png)
+
+Only postings never scored for this profile. Each card carries the quoted job text behind the match.
 
 ---
 
@@ -197,38 +211,16 @@ The system runs on one invariant: **a model output is an uncommitted proposal un
 
 ---
 
-## 5. Demo Video and Walkthrough
+## 5. Local Setup and Reproduction Guide
 
-**Video:** `[link to be added]`
-
-Planned timestamps:
-
-* `0:00` The problem: hundreds of applicants per posting, and the roles that never reach an aggregator.
-* `0:30` Live run: intake form and resume upload, streaming agent activity, funnel counts narrowing 800 postings to a scored shortlist.
-* `2:10` The results: matched roles with quoted evidence behind every skill claim, Hidden Gem badges, and the measured verification rate.
-* `3:10` The daily digest arriving by email without the app being opened.
-* `3:55` Architecture walkthrough and run cost.
-
-**Live demo:** `[link to be added]`
-
-**Offline replay.** The demo mode replays a pre warmed database with no network calls and no credentials, so anyone can see the full interface working:
-
-```bash
-python app.py --demo
-```
-
----
-
-## 6. Local Setup and Reproduction Guide
-
-### 6.1 Prerequisites
+### 5.1 Prerequisites
 
 * Python 3.11 or newer
 * An AWS account that can call Amazon Bedrock in the region you intend to use. Serverless models are enabled on first use. Amazon Nova needs nothing further, while Anthropic models also require Anthropic's use case details before sustained use.
 * Or a local Ollama server, with `MODEL_PROVIDER=ollama`, to run without AWS.
 * AWS CLI configured with credentials that can call Bedrock
 
-### 6.2 Environment Configuration
+### 5.2 Environment Configuration
 
 ```bash
 git clone [repository URL]
@@ -249,10 +241,14 @@ MODEL_PROVIDER=bedrock
 AWS_REGION=us-east-1
 BEDROCK_MODEL_ID=global.amazon.nova-2-lite-v1:0
 BEDROCK_SCORER_MODEL_ID=global.amazon.nova-2-lite-v1:0
-SELF_EMAIL=
+EMAIL_BACKEND=ses
+SELF_EMAIL=your@address.com
+EASEAPPLY_RUNTIME_ARN=
 ```
 
-### 6.3 Database Initialisation
+Leave `EASEAPPLY_RUNTIME_ARN` blank to run everything locally. Set it after deploying and the dashboard calls the deployed runtime instead.
+
+### 5.3 Database Initialisation
 
 Create the SQLite blackboard:
 
@@ -260,7 +256,7 @@ Create the SQLite blackboard:
 python -c "from core.store import init_db; init_db()"
 ```
 
-### 6.4 Execution
+### 5.4 Execution
 
 Launch the dashboard:
 
@@ -268,44 +264,43 @@ Launch the dashboard:
 python app.py
 ```
 
-The interface opens at `http://127.0.0.1:7860`. Upload a resume, fill in the intake form, and start a run.
+The interface opens at `http://127.0.0.1:7860`. Upload a resume, set the target role and locations, then **Save setup and run**. Locations take several places separated by semicolons, for example `Cork, Ireland ; Galway, Ireland ; London, UK`. Roles in a named city rank above everything else.
+
+Finishing a run saves your setup into the blackboard as a single row. That is the row the scheduled run reads, so the system is configured once and you return to the dashboard only to change something.
 
 To see the interface without any AWS setup, use `python app.py --demo`.
 
+**Deploying to AWS (optional).** The dashboard works without any of this. Deploy only if you want the unattended morning run.
+
+```bash
+npx @aws/agentcore deploy
+```
+
+This needs a CDK bootstrapped account. The CLI builds the ARM64 image in CodeBuild, pushes it to ECR, and creates the runtime. Put the printed runtime ARN into `EASEAPPLY_RUNTIME_ARN`.
+
 ---
 
-## 7. Daily Unattended Digest
+## 6. Daily Unattended Run
 
-`digest.py` is a headless worker that runs on a schedule and does the discovery work while the user is not there.
+**What it is for.** The user sets their preferences once. Every morning the system repeats the entire discovery process on its own and emails only what is genuinely new to them. Nobody opens the app.
 
-A digest run loads the saved profile and searches every board already known, from the seed file and earlier runs, skipping the sourcing agent entirely. It fetches current postings, then the diff engine compares them against `first_seen` in the database and keeps only postings that have never been seen before. Those few are filtered and scored, and an HTML digest is rendered and sent to a single recipient, the user's own address.
+**How it works.** EventBridge Scheduler invokes the deployed runtime at 07:00 with `{"action": "daily"}`. The runtime pulls the blackboard from S3, loads the saved profile, and runs the full pipeline including the sourcing agent, so new employers keep being discovered rather than the same known boards being read again. A run takes about a minute and costs roughly $0.009.
 
-Skipping the sourcing stage matters for two reasons: it keeps a daily run to a couple of cents, and it stops the company list drifting from one morning to the next. If nothing new is found, no email is sent.
+**What gets emailed.** Only postings that have never been scored for this profile. That definition does real work: widening your locations surfaces roles that were fetched weeks ago and filtered out at the time, and nothing is ever sent twice. If nothing qualifies, no email is sent. Silence means nothing new, not a failure.
 
-Schedule it with cron:
+**Sending one on demand.** The **Email me these results** button on the Results tab sends the stored run to your inbox in a few seconds, with no board fetching and no model calls.
 
-```
-0 7 * * * cd /absolute/path/to/easeapply && /absolute/path/to/easeapply/.venv/bin/python digest.py >> /absolute/path/to/easeapply/digest.log 2>&1
-```
-
-Point cron at the interpreter inside the virtual environment, not at `python3`. A bare
-`python3` resolves to the system interpreter, which does not have the dependencies installed.
-
-Check the render before scheduling anything:
+Check the render locally before relying on it:
 
 ```bash
 python digest.py --dry-run
 ```
 
-That forces `EMAIL_BACKEND=none`, writes `digest_preview.html`, and sends nothing.
-
-Use absolute paths throughout, because cron runs with a nearly empty environment and will not resolve `python3` or relative paths the way a shell does. Load the `.env` file explicitly by absolute path. Always redirect output to a log, otherwise a failing job is silent.
-
-On Windows, use Task Scheduler or run it under WSL.
+That forces `EMAIL_BACKEND=none`, writes `digest_preview.html`, and sends nothing. Passing `--known-boards-only` runs the cheaper path that skips the sourcing agent.
 
 ---
 
-## 8. Third-Party Attributions and API Disclosures
+## 7. Third-Party Attributions and API Disclosures
 
 Every external service is accessed through public, unauthenticated, read only endpoints. EaseApply never handles credentials for any job platform and does not scrape authenticated pages.
 

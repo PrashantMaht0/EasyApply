@@ -60,13 +60,13 @@ def _tailor(payload: dict) -> dict:
 
 @app.entrypoint
 async def invoke(payload, context):
-    """run streams progress, tailor and digest return once. The blackboard lives in S3."""
+    """run streams progress, the others return once. The blackboard lives in S3."""
     if not isinstance(payload, dict):
         yield {"error": "payload must be a JSON object"}
         return
     action = payload.get("action", "run")
-    if action not in ("run", "tailor", "digest"):
-        yield {"error": f"unknown action {action!r}, expected run, tailor or digest"}
+    if action not in ("run", "tailor", "digest", "daily", "email"):
+        yield {"error": f"unknown action {action!r}, expected run, tailor, digest, daily or email"}
         return
 
     log.info("easeapply action=%s session=%s", action, getattr(context, "session_id", "none"))
@@ -77,10 +77,17 @@ async def invoke(payload, context):
         if action == "tailor":
             yield _tailor(payload)
             return
-        if action == "digest":
-            from digest import run_digest
+        if action == "email":
+            from digest import resend_latest
 
-            out = await run_digest(log=lambda message: log.info(message))
+            out = resend_latest(log=lambda message: log.info(message))
+            yield {k: v for k, v in out.items() if k != "html"}
+            return
+        if action in ("digest", "daily"):
+            from digest import run_daily, run_digest
+
+            runner = run_daily if action == "daily" else run_digest
+            out = await runner(log=lambda message: log.info(message))
             yield {k: v for k, v in out.items() if k != "html"}
             return
 

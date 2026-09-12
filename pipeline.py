@@ -8,7 +8,7 @@ import uuid
 from pypdf import PdfReader
 from dotenv import load_dotenv
 
-from agents.orchestrator import ranking_rationale
+from agents.ranker import ranking_rationale
 from agents.prompts import versions
 from agents.profiler import build_profile, profile_json
 from agents.scorer import score_all

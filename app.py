@@ -201,8 +201,13 @@ def _demo_replay():
 def _remote_stream(payload: dict):
     """One SigV4 call to the deployed runtime. Each SSE frame carries one JSON object."""
     import boto3
+    from botocore.config import Config
 
-    client = boto3.client("bedrock-agentcore", region_name=os.getenv("AWS_REGION") or "us-east-1")
+    # a daily run answers only when the pipeline finishes, well past the 60 second default, and a
+    # retry would invoke it twice and email twice
+    client = boto3.client("bedrock-agentcore", region_name=os.getenv("AWS_REGION") or "us-east-1",
+                          config=Config(read_timeout=900, connect_timeout=15,
+                                        retries={"max_attempts": 0}))
     response = client.invoke_agent_runtime(
         agentRuntimeArn=RUNTIME_ARN, contentType="application/json",
         accept="text/event-stream",
@@ -312,6 +317,28 @@ def start_run(resume_file, desired_role, level, work_mode, location, extra_conte
            _diagnostics(result["funnel"]))
 
 
+def email_results():
+    """Sends the stored run to your inbox on demand, so the email path can be shown live."""
+    if DEMO:
+        return "Email is disabled in demo mode, which makes no network calls."
+    try:
+        if RUNTIME_ARN:
+            out = None
+            for event in _remote_stream({"action": "email"}):
+                out = event
+            if not out or "error" in (out or {}):
+                return f"Could not send: {(out or {}).get('error', 'no response')}"
+        else:
+            from digest import resend_latest
+
+            out = resend_latest(log=lambda message: None)
+    except Exception as exc:
+        return f"Could not send: {exc}"
+    if not out.get("emailed"):
+        return "Nothing was sent. Check EMAIL_BACKEND and SELF_EMAIL."
+    return f"Sent {out['sent']} matches from run {out['run_id']} to your inbox."
+
+
 def show_detail(visible, event: gr.SelectData):
     """Evidence for one row. Every quote here already passed span verification."""
     empty = ("Select a row on the Results tab.", None, "")
@@ -399,7 +426,8 @@ with gr.Blocks(title="EaseApply", css=CSS) as demo:
     results_state = gr.State([])
     visible_state = gr.State([])
     selected_id = gr.State(None)
-    gr.Markdown("# EaseApply\nJobs straight from company ATS boards, every claim checked against the source.")
+    gr.Markdown("# EaseApply\nJobs straight from company ATS boards, every claim checked against the source.\n\n"
+                "Set up once here. Every morning at 07:00 the pipeline runs itself on AWS and emails you what is new.")
     if DEMO:
         gr.Markdown("**Demo mode.** Replaying a stored run. No network calls, no credentials.")
 
@@ -411,12 +439,19 @@ with gr.Blocks(title="EaseApply", css=CSS) as demo:
                     role = gr.Textbox(label="Target role", placeholder="AI Engineer")
                     level = gr.Dropdown(LEVELS, value="mid", label="Experience level")
                     mode = gr.Dropdown(WORK_MODES, value="any", label="Work mode")
-                    location = gr.Textbox(label="Location", placeholder="Dublin, Ireland")
-                    context = gr.Textbox(label="Anything else", lines=3,
-                                         placeholder="Constraints, interests, visa situation")
-                    run = gr.Button("Replay stored run" if DEMO else "Start run",
+                    location = gr.Textbox(
+                        label="Locations", placeholder="Cork, Ireland ; Galway, Ireland ; Dublin, Ireland ; London, UK",
+                        info="Separate several with semicolons. Roles in a city you name rank above everything else.")
+                    context = gr.Textbox(
+                        label="Extra instructions", lines=3,
+                        placeholder="Constraints, interests, visa situation",
+                        info="Passed to the profiler and kept for every scheduled run.")
+                    run = gr.Button("Replay stored run" if DEMO else "Save setup and run",
                                     variant="primary")
                 with gr.Column(scale=2):
+                    gr.Markdown(
+                        "Finishing a run saves this setup to the cloud blackboard. The 07:00 job reuses it, "
+                        "so you only come back here to change something.")
                     metrics = gr.HTML(_metrics({}))
                     log = gr.Textbox(label="Live log", lines=14, interactive=False)
 
@@ -426,6 +461,9 @@ with gr.Blocks(title="EaseApply", css=CSS) as demo:
                 gaps_out = gr.Markdown()
             table = gr.Dataframe(headers=HEADERS, datatype=DATATYPES, interactive=False,
                                  wrap=True, label="Matches, closest first")
+            with gr.Row():
+                email_btn = gr.Button("Email me these results")
+                email_status = gr.Markdown()
             picked = gr.Markdown()
 
         with gr.Tab("Selected role"):
@@ -442,6 +480,7 @@ with gr.Blocks(title="EaseApply", css=CSS) as demo:
               [log, metrics, table, rationale, gaps_out, results_state, diagnostics])
     results_state.change(_visible, [results_state], [table, visible_state])
     table.select(show_detail, [visible_state], [detail, selected_id, picked])
+    email_btn.click(email_results, outputs=email_status)
     tailor_btn.click(tailor, [selected_id], [bullets])
 
 

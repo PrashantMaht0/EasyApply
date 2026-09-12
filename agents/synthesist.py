@@ -5,7 +5,7 @@ from collections import defaultdict
 
 from strands import Agent
 
-from agents.orchestrator import get_model, model_id_of, run_json
+from core.llm import get_model, model_id_of, run_json
 from agents.prompts import load
 
 SYSTEM = str(load("a4_synthesist"))

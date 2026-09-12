@@ -4,7 +4,7 @@ import re
 
 from strands import Agent
 
-from agents.orchestrator import delimit, get_model, model_id_of, run_json
+from core.llm import delimit, get_model, model_id_of, run_json
 from agents.prompts import load
 from core.verify import normalise_span, span_present
 
