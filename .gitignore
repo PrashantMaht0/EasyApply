@@ -1,0 +1,21 @@
+# —————— Temprary files —————
+Notes.md
+
+# ————— Enviornment variables —————
+.env
+
+# ————— Python —————
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# ————— Working data —————
+data/easeapply.db
+*.pdf
+digest_preview.html
+digest.log
+.gradio/
+
+# ————— Personal screenshots, never part of the submission —————
+public/resources/Screenshot*

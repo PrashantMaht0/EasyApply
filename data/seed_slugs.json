@@ -1,0 +1,1252 @@
+{
+ "1password": {
+  "slug": "1password",
+  "platform": "ashby",
+  "name": "1Password"
+ },
+ "abridge": {
+  "slug": "abridge",
+  "platform": "ashby",
+  "name": "Abridge"
+ },
+ "adyen": {
+  "slug": "adyen",
+  "platform": "greenhouse",
+  "name": "Adyen"
+ },
+ "airbnb": {
+  "slug": "airbnb",
+  "platform": "greenhouse",
+  "name": "Airbnb"
+ },
+ "airbyte": {
+  "slug": "airbyte",
+  "platform": "ashby",
+  "name": "Airbyte"
+ },
+ "airtable": {
+  "slug": "airtable",
+  "platform": "greenhouse",
+  "name": "Airtable"
+ },
+ "albedo": {
+  "slug": "albedo",
+  "platform": "greenhouse",
+  "name": "Albedo"
+ },
+ "alloy": {
+  "slug": "alloy",
+  "platform": "greenhouse",
+  "name": "Alloy"
+ },
+ "amplitude": {
+  "slug": "amplitude",
+  "platform": "greenhouse",
+  "name": "Amplitude"
+ },
+ "angellist": {
+  "slug": "angellist",
+  "platform": "lever",
+  "name": "AngelList"
+ },
+ "anthropic": {
+  "slug": "anthropic",
+  "platform": "greenhouse",
+  "name": "Anthropic"
+ },
+ "arcadia": {
+  "slug": "arcadia",
+  "platform": "lever",
+  "name": "Arcadia"
+ },
+ "asana": {
+  "slug": "asana",
+  "platform": "greenhouse",
+  "name": "Asana"
+ },
+ "ashby": {
+  "slug": "ashby",
+  "platform": "ashby",
+  "name": "Ashby"
+ },
+ "assemblyai": {
+  "slug": "assemblyai",
+  "platform": "greenhouse",
+  "name": "AssemblyAI"
+ },
+ "astera": {
+  "slug": "astera",
+  "platform": "ashby",
+  "name": "Astera"
+ },
+ "astranis": {
+  "slug": "astranis",
+  "platform": "greenhouse",
+  "name": "Astranis"
+ },
+ "astronomer": {
+  "slug": "astronomer",
+  "platform": "ashby",
+  "name": "Astronomer"
+ },
+ "atlan": {
+  "slug": "atlan",
+  "platform": "ashby",
+  "name": "Atlan"
+ },
+ "attentive": {
+  "slug": "attentive",
+  "platform": "greenhouse",
+  "name": "Attentive"
+ },
+ "axonius": {
+  "slug": "axonius",
+  "platform": "greenhouse",
+  "name": "Axonius"
+ },
+ "benchling": {
+  "slug": "benchling",
+  "platform": "ashby",
+  "name": "Benchling"
+ },
+ "benepass": {
+  "slug": "benepass",
+  "platform": "ashby",
+  "name": "Benepass"
+ },
+ "betterhelp": {
+  "slug": "betterhelp",
+  "platform": "greenhouse",
+  "name": "BetterHelp"
+ },
+ "betterment": {
+  "slug": "betterment",
+  "platform": "greenhouse",
+  "name": "Betterment"
+ },
+ "braze": {
+  "slug": "braze",
+  "platform": "greenhouse",
+  "name": "Braze"
+ },
+ "brex": {
+  "slug": "brex",
+  "platform": "greenhouse",
+  "name": "Brex"
+ },
+ "buildkite": {
+  "slug": "buildkite",
+  "platform": "greenhouse",
+  "name": "Buildkite"
+ },
+ "calendly": {
+  "slug": "calendly",
+  "platform": "greenhouse",
+  "name": "Calendly"
+ },
+ "carta": {
+  "slug": "carta",
+  "platform": "greenhouse",
+  "name": "Carta"
+ },
+ "cartrawler": {
+  "slug": "cartrawler",
+  "platform": "lever",
+  "name": "CarTrawler"
+ },
+ "cedar": {
+  "slug": "cedar",
+  "platform": "ashby",
+  "name": "Cedar"
+ },
+ "cerebras": {
+  "slug": "cerebras",
+  "platform": "ashby",
+  "name": "Cerebras"
+ },
+ "chainguard": {
+  "slug": "chainguard",
+  "platform": "greenhouse",
+  "name": "Chainguard"
+ },
+ "checkr": {
+  "slug": "checkr",
+  "platform": "greenhouse",
+  "name": "Checkr"
+ },
+ "circleci": {
+  "slug": "circleci",
+  "platform": "greenhouse",
+  "name": "CircleCI"
+ },
+ "clickhouse": {
+  "slug": "clickhouse",
+  "platform": "ashby",
+  "name": "Clickhouse"
+ },
+ "clickup": {
+  "slug": "clickup",
+  "platform": "ashby",
+  "name": "ClickUp"
+ },
+ "cloudflare": {
+  "slug": "cloudflare",
+  "platform": "greenhouse",
+  "name": "Cloudflare"
+ },
+ "cohere": {
+  "slug": "cohere",
+  "platform": "ashby",
+  "name": "Cohere"
+ },
+ "coinbase": {
+  "slug": "coinbase",
+  "platform": "greenhouse",
+  "name": "Coinbase"
+ },
+ "column": {
+  "slug": "column",
+  "platform": "ashby",
+  "name": "Column"
+ },
+ "confluent": {
+  "slug": "confluent",
+  "platform": "ashby",
+  "name": "Confluent"
+ },
+ "coursera": {
+  "slug": "coursera",
+  "platform": "greenhouse",
+  "name": "Coursera"
+ },
+ "cribl": {
+  "slug": "cribl",
+  "platform": "greenhouse",
+  "name": "Cribl"
+ },
+ "crusoe": {
+  "slug": "crusoe",
+  "platform": "ashby",
+  "name": "Crusoe"
+ },
+ "culture amp": {
+  "slug": "cultureamp",
+  "platform": "greenhouse",
+  "name": "Culture Amp"
+ },
+ "customer io": {
+  "slug": "customerio",
+  "platform": "greenhouse",
+  "name": "Customer io"
+ },
+ "databricks": {
+  "slug": "databricks",
+  "platform": "greenhouse",
+  "name": "Databricks"
+ },
+ "datadog": {
+  "slug": "datadog",
+  "platform": "greenhouse",
+  "name": "Datadog"
+ },
+ "david": {
+  "slug": "david",
+  "platform": "greenhouse",
+  "name": "David"
+ },
+ "deepgram": {
+  "slug": "deepgram",
+  "platform": "ashby",
+  "name": "Deepgram"
+ },
+ "deputy": {
+  "slug": "deputy",
+  "platform": "lever",
+  "name": "Deputy"
+ },
+ "descript": {
+  "slug": "descript",
+  "platform": "greenhouse",
+  "name": "Descript"
+ },
+ "dexterity": {
+  "slug": "dexterity",
+  "platform": "lever",
+  "name": "Dexterity"
+ },
+ "discord": {
+  "slug": "discord",
+  "platform": "greenhouse",
+  "name": "Discord"
+ },
+ "divergent": {
+  "slug": "divergent",
+  "platform": "greenhouse",
+  "name": "Divergent"
+ },
+ "doppler": {
+  "slug": "doppler",
+  "platform": "ashby",
+  "name": "Doppler"
+ },
+ "dragos": {
+  "slug": "dragos",
+  "platform": "greenhouse",
+  "name": "Dragos"
+ },
+ "dropbox": {
+  "slug": "dropbox",
+  "platform": "greenhouse",
+  "name": "Dropbox"
+ },
+ "duolingo": {
+  "slug": "duolingo",
+  "platform": "greenhouse",
+  "name": "Duolingo"
+ },
+ "elastic": {
+  "slug": "elastic",
+  "platform": "greenhouse",
+  "name": "Elastic"
+ },
+ "elevenlabs": {
+  "slug": "elevenlabs",
+  "platform": "ashby",
+  "name": "ElevenLabs"
+ },
+ "encord": {
+  "slug": "encord",
+  "platform": "ashby",
+  "name": "Encord"
+ },
+ "enode": {
+  "slug": "enode",
+  "platform": "ashby",
+  "name": "Enode"
+ },
+ "epic games": {
+  "slug": "epicgames",
+  "platform": "greenhouse",
+  "name": "Epic Games"
+ },
+ "equal1": {
+  "slug": "equal1",
+  "platform": "ashby",
+  "name": "Equal1"
+ },
+ "etched": {
+  "slug": "etched",
+  "platform": "ashby",
+  "name": "Etched"
+ },
+ "everlaw": {
+  "slug": "everlaw",
+  "platform": "greenhouse",
+  "name": "Everlaw"
+ },
+ "evervault": {
+  "slug": "evervault",
+  "platform": "ashby",
+  "name": "Evervault"
+ },
+ "expensify": {
+  "slug": "expensify",
+  "platform": "ashby",
+  "name": "Expensify"
+ },
+ "faire": {
+  "slug": "faire",
+  "platform": "greenhouse",
+  "name": "Faire"
+ },
+ "fastly": {
+  "slug": "fastly",
+  "platform": "greenhouse",
+  "name": "Fastly"
+ },
+ "figma": {
+  "slug": "figma",
+  "platform": "greenhouse",
+  "name": "Figma"
+ },
+ "filevine": {
+  "slug": "filevine",
+  "platform": "lever",
+  "name": "Filevine"
+ },
+ "finix": {
+  "slug": "finix",
+  "platform": "lever",
+  "name": "Finix"
+ },
+ "fivetran": {
+  "slug": "fivetran",
+  "platform": "greenhouse",
+  "name": "Fivetran"
+ },
+ "flexport": {
+  "slug": "flexport",
+  "platform": "greenhouse",
+  "name": "Flexport"
+ },
+ "flipdish": {
+  "slug": "flipdish",
+  "platform": "greenhouse",
+  "name": "Flipdish"
+ },
+ "forter": {
+  "slug": "forter",
+  "platform": "greenhouse",
+  "name": "Forter"
+ },
+ "forward": {
+  "slug": "forward",
+  "platform": "greenhouse",
+  "name": "Forward"
+ },
+ "freenome": {
+  "slug": "freenome",
+  "platform": "greenhouse",
+  "name": "Freenome"
+ },
+ "ghost": {
+  "slug": "ghost",
+  "platform": "greenhouse",
+  "name": "Ghost"
+ },
+ "gopuff": {
+  "slug": "gopuff",
+  "platform": "lever",
+  "name": "Gopuff"
+ },
+ "greenfield": {
+  "slug": "greenfield",
+  "platform": "personio",
+  "name": "Greenfield"
+ },
+ "greenhouse": {
+  "slug": "greenhouse",
+  "platform": "greenhouse",
+  "name": "Greenhouse"
+ },
+ "guild": {
+  "slug": "guild",
+  "platform": "greenhouse",
+  "name": "Guild"
+ },
+ "handshake": {
+  "slug": "handshake",
+  "platform": "ashby",
+  "name": "Handshake"
+ },
+ "harvey": {
+  "slug": "harvey",
+  "platform": "ashby",
+  "name": "Harvey"
+ },
+ "headway": {
+  "slug": "headway",
+  "platform": "ashby",
+  "name": "Headway"
+ },
+ "helion": {
+  "slug": "helion",
+  "platform": "ashby",
+  "name": "Helion"
+ },
+ "heygen": {
+  "slug": "heygen",
+  "platform": "greenhouse",
+  "name": "HeyGen"
+ },
+ "highnote": {
+  "slug": "highnote",
+  "platform": "greenhouse",
+  "name": "Highnote"
+ },
+ "hightouch": {
+  "slug": "hightouch",
+  "platform": "greenhouse",
+  "name": "Hightouch"
+ },
+ "homebase": {
+  "slug": "homebase",
+  "platform": "ashby",
+  "name": "Homebase"
+ },
+ "huntress": {
+  "slug": "huntress",
+  "platform": "greenhouse",
+  "name": "Huntress"
+ },
+ "included health": {
+  "slug": "includedhealth",
+  "platform": "lever",
+  "name": "Included Health"
+ },
+ "infisical": {
+  "slug": "infisical",
+  "platform": "ashby",
+  "name": "Infisical"
+ },
+ "instabase": {
+  "slug": "instabase",
+  "platform": "greenhouse",
+  "name": "Instabase"
+ },
+ "instacart": {
+  "slug": "instacart",
+  "platform": "greenhouse",
+  "name": "Instacart"
+ },
+ "iterable": {
+  "slug": "iterable",
+  "platform": "greenhouse",
+  "name": "Iterable"
+ },
+ "justworks": {
+  "slug": "justworks",
+  "platform": "greenhouse",
+  "name": "Justworks"
+ },
+ "khan academy": {
+  "slug": "khanacademy",
+  "platform": "greenhouse",
+  "name": "Khan Academy"
+ },
+ "klaviyo": {
+  "slug": "klaviyo",
+  "platform": "greenhouse",
+  "name": "Klaviyo"
+ },
+ "komodo health": {
+  "slug": "komodohealth",
+  "platform": "greenhouse",
+  "name": "Komodo Health"
+ },
+ "labelbox": {
+  "slug": "labelbox",
+  "platform": "greenhouse",
+  "name": "Labelbox"
+ },
+ "lancedb": {
+  "slug": "lancedb",
+  "platform": "ashby",
+  "name": "LanceDB"
+ },
+ "lattice": {
+  "slug": "lattice",
+  "platform": "greenhouse",
+  "name": "Lattice"
+ },
+ "launchdarkly": {
+  "slug": "launchdarkly",
+  "platform": "greenhouse",
+  "name": "LaunchDarkly"
+ },
+ "leap": {
+  "slug": "leap",
+  "platform": "ashby",
+  "name": "Leap"
+ },
+ "ledge": {
+  "slug": "ledge",
+  "platform": "ashby",
+  "name": "Ledge"
+ },
+ "level": {
+  "slug": "level",
+  "platform": "ashby",
+  "name": "Level"
+ },
+ "lightmatter": {
+  "slug": "lightmatter",
+  "platform": "greenhouse",
+  "name": "Lightmatter"
+ },
+ "lightsource": {
+  "slug": "lightsource",
+  "platform": "ashby",
+  "name": "Lightsource"
+ },
+ "linear": {
+  "slug": "linear",
+  "platform": "ashby",
+  "name": "Linear"
+ },
+ "lithic": {
+  "slug": "lithic",
+  "platform": "greenhouse",
+  "name": "Lithic"
+ },
+ "logz": {
+  "slug": "logz",
+  "platform": "lever",
+  "name": "Logz"
+ },
+ "lucid motors": {
+  "slug": "lucidmotors",
+  "platform": "greenhouse",
+  "name": "Lucid Motors"
+ },
+ "lyft": {
+  "slug": "lyft",
+  "platform": "greenhouse",
+  "name": "Lyft"
+ },
+ "materialize": {
+  "slug": "materialize",
+  "platform": "ashby",
+  "name": "Materialize"
+ },
+ "melio": {
+  "slug": "melio",
+  "platform": "greenhouse",
+  "name": "Melio"
+ },
+ "mercury": {
+  "slug": "mercury",
+  "platform": "greenhouse",
+  "name": "Mercury"
+ },
+ "miro": {
+  "slug": "miro",
+  "platform": "ashby",
+  "name": "Miro"
+ },
+ "mixpanel": {
+  "slug": "mixpanel",
+  "platform": "greenhouse",
+  "name": "Mixpanel"
+ },
+ "modal labs": {
+  "slug": "modal",
+  "platform": "ashby",
+  "name": "Modal Labs"
+ },
+ "mongodb": {
+  "slug": "mongodb",
+  "platform": "greenhouse",
+  "name": "MongoDB"
+ },
+ "monzo": {
+  "slug": "monzo",
+  "platform": "greenhouse",
+  "name": "Monzo"
+ },
+ "natera": {
+  "slug": "natera",
+  "platform": "greenhouse",
+  "name": "Natera"
+ },
+ "nearform": {
+  "slug": "nearform",
+  "platform": "greenhouse",
+  "name": "Nearform"
+ },
+ "neon": {
+  "slug": "neon",
+  "platform": "lever",
+  "name": "Neon"
+ },
+ "netlify": {
+  "slug": "netlify",
+  "platform": "greenhouse",
+  "name": "Netlify"
+ },
+ "netskope": {
+  "slug": "netskope",
+  "platform": "greenhouse",
+  "name": "Netskope"
+ },
+ "notion": {
+  "slug": "notion",
+  "platform": "ashby",
+  "name": "Notion"
+ },
+ "nubank": {
+  "slug": "nubank",
+  "platform": "ashby",
+  "name": "Nubank"
+ },
+ "nuro": {
+  "slug": "nuro",
+  "platform": "greenhouse",
+  "name": "Nuro"
+ },
+ "okta": {
+  "slug": "okta",
+  "platform": "greenhouse",
+  "name": "Okta"
+ },
+ "olo": {
+  "slug": "olo",
+  "platform": "lever",
+  "name": "Olo"
+ },
+ "openai": {
+  "slug": "openai",
+  "platform": "ashby",
+  "name": "OpenAI"
+ },
+ "openevidence": {
+  "slug": "openevidence",
+  "platform": "ashby",
+  "name": "OpenEvidence"
+ },
+ "orca": {
+  "slug": "orca",
+  "platform": "ashby",
+  "name": "Orca"
+ },
+ "osaro": {
+  "slug": "osaro",
+  "platform": "lever",
+  "name": "Osaro"
+ },
+ "outreach": {
+  "slug": "outreach",
+  "platform": "lever",
+  "name": "Outreach"
+ },
+ "ovoko": {
+  "slug": "ovoko",
+  "platform": "ashby",
+  "name": "Ovoko"
+ },
+ "pagerduty": {
+  "slug": "pagerduty",
+  "platform": "greenhouse",
+  "name": "PagerDuty"
+ },
+ "paradox": {
+  "slug": "paradox",
+  "platform": "ashby",
+  "name": "Paradox"
+ },
+ "patch": {
+  "slug": "patch",
+  "platform": "greenhouse",
+  "name": "Patch"
+ },
+ "patreon": {
+  "slug": "patreon",
+  "platform": "ashby",
+  "name": "Patreon"
+ },
+ "peloton": {
+  "slug": "peloton",
+  "platform": "greenhouse",
+  "name": "Peloton"
+ },
+ "perplexity": {
+  "slug": "perplexity",
+  "platform": "ashby",
+  "name": "Perplexity"
+ },
+ "persona": {
+  "slug": "persona",
+  "platform": "ashby",
+  "name": "Persona"
+ },
+ "pinecone": {
+  "slug": "pinecone",
+  "platform": "ashby",
+  "name": "Pinecone"
+ },
+ "pinterest": {
+  "slug": "pinterest",
+  "platform": "greenhouse",
+  "name": "Pinterest"
+ },
+ "plaid": {
+  "slug": "plaid",
+  "platform": "ashby",
+  "name": "Plaid"
+ },
+ "poppulo": {
+  "slug": "poppulo",
+  "platform": "greenhouse",
+  "name": "Poppulo"
+ },
+ "porter": {
+  "slug": "porter",
+  "platform": "lever",
+  "name": "Porter"
+ },
+ "poshmark": {
+  "slug": "poshmark",
+  "platform": "ashby",
+  "name": "Poshmark"
+ },
+ "postman": {
+  "slug": "postman",
+  "platform": "greenhouse",
+  "name": "Postman"
+ },
+ "prefect": {
+  "slug": "prefect",
+  "platform": "ashby",
+  "name": "Prefect"
+ },
+ "proact": {
+  "slug": "proact",
+  "platform": "personio",
+  "name": "Proact"
+ },
+ "qualio": {
+  "slug": "qualio",
+  "platform": "greenhouse",
+  "name": "Qualio"
+ },
+ "quantexa": {
+  "slug": "quantexa",
+  "platform": "ashby",
+  "name": "Quantexa"
+ },
+ "railway": {
+  "slug": "railway",
+  "platform": "ashby",
+  "name": "Railway"
+ },
+ "ramp": {
+  "slug": "ramp",
+  "platform": "ashby",
+  "name": "Ramp"
+ },
+ "reddit": {
+  "slug": "reddit",
+  "platform": "greenhouse",
+  "name": "Reddit"
+ },
+ "redis": {
+  "slug": "redis",
+  "platform": "ashby",
+  "name": "Redis"
+ },
+ "render": {
+  "slug": "render",
+  "platform": "ashby",
+  "name": "Render"
+ },
+ "replit": {
+  "slug": "replit",
+  "platform": "ashby",
+  "name": "Replit"
+ },
+ "riot games": {
+  "slug": "riotgames",
+  "platform": "greenhouse",
+  "name": "Riot Games"
+ },
+ "ripple": {
+  "slug": "ripple",
+  "platform": "greenhouse",
+  "name": "Ripple"
+ },
+ "riskified": {
+  "slug": "riskified",
+  "platform": "greenhouse",
+  "name": "Riskified"
+ },
+ "ro": {
+  "slug": "ro",
+  "platform": "lever",
+  "name": "Ro"
+ },
+ "robinhood": {
+  "slug": "robinhood",
+  "platform": "greenhouse",
+  "name": "Robinhood"
+ },
+ "roblox": {
+  "slug": "roblox",
+  "platform": "greenhouse",
+  "name": "Roblox"
+ },
+ "roboflow": {
+  "slug": "roboflow",
+  "platform": "ashby",
+  "name": "Roboflow"
+ },
+ "runway": {
+  "slug": "runway",
+  "platform": "ashby",
+  "name": "Runway"
+ },
+ "salesloft": {
+  "slug": "salesloft",
+  "platform": "greenhouse",
+  "name": "Salesloft"
+ },
+ "samsara": {
+  "slug": "samsara",
+  "platform": "greenhouse",
+  "name": "Samsara"
+ },
+ "sapien": {
+  "slug": "sapien",
+  "platform": "ashby",
+  "name": "Sapien"
+ },
+ "sardine": {
+  "slug": "sardine",
+  "platform": "ashby",
+  "name": "Sardine"
+ },
+ "saronic": {
+  "slug": "saronic",
+  "platform": "ashby",
+  "name": "Saronic"
+ },
+ "scale ai": {
+  "slug": "scaleai",
+  "platform": "greenhouse",
+  "name": "Scale AI"
+ },
+ "scarlet": {
+  "slug": "scarlet",
+  "platform": "ashby",
+  "name": "Scarlet"
+ },
+ "sentry": {
+  "slug": "sentry",
+  "platform": "ashby",
+  "name": "Sentry"
+ },
+ "sequoia": {
+  "slug": "sequoia",
+  "platform": "ashby",
+  "name": "Sequoia"
+ },
+ "shield": {
+  "slug": "shield",
+  "platform": "greenhouse",
+  "name": "Shield"
+ },
+ "sierra": {
+  "slug": "sierra",
+  "platform": "ashby",
+  "name": "Sierra"
+ },
+ "sift": {
+  "slug": "sift",
+  "platform": "ashby",
+  "name": "Sift"
+ },
+ "sila": {
+  "slug": "sila",
+  "platform": "lever",
+  "name": "Sila"
+ },
+ "singlestore": {
+  "slug": "singlestore",
+  "platform": "greenhouse",
+  "name": "SingleStore"
+ },
+ "sitecore": {
+  "slug": "sitecore",
+  "platform": "ashby",
+  "name": "Sitecore"
+ },
+ "skydio": {
+  "slug": "skydio",
+  "platform": "ashby",
+  "name": "Skydio"
+ },
+ "smartsheet": {
+  "slug": "smartsheet",
+  "platform": "greenhouse",
+  "name": "Smartsheet"
+ },
+ "snowflake": {
+  "slug": "snowflake",
+  "platform": "ashby",
+  "name": "Snowflake"
+ },
+ "socure": {
+  "slug": "socure",
+  "platform": "ashby",
+  "name": "Socure"
+ },
+ "spectrum": {
+  "slug": "spectrum",
+  "platform": "greenhouse",
+  "name": "Spectrum"
+ },
+ "squarespace": {
+  "slug": "squarespace",
+  "platform": "greenhouse",
+  "name": "Squarespace"
+ },
+ "stockx": {
+  "slug": "stockx",
+  "platform": "greenhouse",
+  "name": "StockX"
+ },
+ "strava": {
+  "slug": "strava",
+  "platform": "ashby",
+  "name": "Strava"
+ },
+ "stripe": {
+  "slug": "stripe",
+  "platform": "greenhouse",
+  "name": "Stripe"
+ },
+ "substack": {
+  "slug": "substack",
+  "platform": "ashby",
+  "name": "Substack"
+ },
+ "suno": {
+  "slug": "suno",
+  "platform": "ashby",
+  "name": "Suno"
+ },
+ "supabase": {
+  "slug": "supabase",
+  "platform": "ashby",
+  "name": "Supabase"
+ },
+ "superannotate": {
+  "slug": "superannotate",
+  "platform": "lever",
+  "name": "SuperAnnotate"
+ },
+ "sweep": {
+  "slug": "sweep",
+  "platform": "ashby",
+  "name": "Sweep"
+ },
+ "sweetgreen": {
+  "slug": "sweetgreen",
+  "platform": "greenhouse",
+  "name": "Sweetgreen"
+ },
+ "sylvera": {
+  "slug": "sylvera",
+  "platform": "ashby",
+  "name": "Sylvera"
+ },
+ "symplicity": {
+  "slug": "symplicity",
+  "platform": "lever",
+  "name": "Symplicity"
+ },
+ "synthesia": {
+  "slug": "synthesia",
+  "platform": "ashby",
+  "name": "Synthesia"
+ },
+ "sysdig": {
+  "slug": "sysdig",
+  "platform": "lever",
+  "name": "Sysdig"
+ },
+ "tailscale": {
+  "slug": "tailscale",
+  "platform": "greenhouse",
+  "name": "Tailscale"
+ },
+ "talkspace": {
+  "slug": "talkspace",
+  "platform": "greenhouse",
+  "name": "Talkspace"
+ },
+ "taoglas": {
+  "slug": "taoglas",
+  "platform": "personio",
+  "name": "Taoglas"
+ },
+ "teamwork": {
+  "slug": "teamwork",
+  "platform": "personio",
+  "name": "Teamwork"
+ },
+ "temporal technologies": {
+  "slug": "temporal",
+  "platform": "ashby",
+  "name": "Temporal Technologies"
+ },
+ "tenstorrent": {
+  "slug": "tenstorrent",
+  "platform": "greenhouse",
+  "name": "Tenstorrent"
+ },
+ "tines": {
+  "slug": "tines",
+  "platform": "greenhouse",
+  "name": "Tines"
+ },
+ "toast": {
+  "slug": "toast",
+  "platform": "greenhouse",
+  "name": "Toast"
+ },
+ "twilio": {
+  "slug": "twilio",
+  "platform": "greenhouse",
+  "name": "Twilio"
+ },
+ "twitch": {
+  "slug": "twitch",
+  "platform": "greenhouse",
+  "name": "Twitch"
+ },
+ "udemy": {
+  "slug": "udemy",
+  "platform": "greenhouse",
+  "name": "Udemy"
+ },
+ "udio": {
+  "slug": "udio",
+  "platform": "greenhouse",
+  "name": "Udio"
+ },
+ "ultralytics": {
+  "slug": "ultralytics",
+  "platform": "ashby",
+  "name": "Ultralytics"
+ },
+ "unispace": {
+  "slug": "unispace",
+  "platform": "greenhouse",
+  "name": "Unispace"
+ },
+ "unit": {
+  "slug": "unit",
+  "platform": "ashby",
+  "name": "Unit"
+ },
+ "vanta": {
+  "slug": "vanta",
+  "platform": "ashby",
+  "name": "Vanta"
+ },
+ "vector": {
+  "slug": "vector",
+  "platform": "ashby",
+  "name": "Vector"
+ },
+ "veeva": {
+  "slug": "veeva",
+  "platform": "lever",
+  "name": "Veeva"
+ },
+ "vercel": {
+  "slug": "vercel",
+  "platform": "greenhouse",
+  "name": "Vercel"
+ },
+ "verkada": {
+  "slug": "verkada",
+  "platform": "greenhouse",
+  "name": "Verkada"
+ },
+ "verse": {
+  "slug": "verse",
+  "platform": "greenhouse",
+  "name": "Verse"
+ },
+ "voxel51": {
+  "slug": "voxel51",
+  "platform": "greenhouse",
+  "name": "Voxel51"
+ },
+ "watershed": {
+  "slug": "watershed",
+  "platform": "ashby",
+  "name": "Watershed"
+ },
+ "wayflyer": {
+  "slug": "wayflyer",
+  "platform": "ashby",
+  "name": "Wayflyer"
+ },
+ "waymo": {
+  "slug": "waymo",
+  "platform": "greenhouse",
+  "name": "Waymo"
+ },
+ "wealthfront": {
+  "slug": "wealthfront",
+  "platform": "lever",
+  "name": "Wealthfront"
+ },
+ "weaviate": {
+  "slug": "weaviate",
+  "platform": "ashby",
+  "name": "Weaviate"
+ },
+ "webflow": {
+  "slug": "webflow",
+  "platform": "greenhouse",
+  "name": "Webflow"
+ },
+ "whoop": {
+  "slug": "whoop",
+  "platform": "ashby",
+  "name": "Whoop"
+ },
+ "wing": {
+  "slug": "wing",
+  "platform": "greenhouse",
+  "name": "Wing"
+ },
+ "workhuman": {
+  "slug": "workhuman",
+  "platform": "ashby",
+  "name": "Workhuman"
+ },
+ "workstream": {
+  "slug": "workstream",
+  "platform": "greenhouse",
+  "name": "Workstream"
+ },
+ "wrapbook": {
+  "slug": "wrapbook",
+  "platform": "ashby",
+  "name": "Wrapbook"
+ },
+ "wrike": {
+  "slug": "wrike",
+  "platform": "greenhouse",
+  "name": "Wrike"
+ },
+ "xcimer": {
+  "slug": "xcimer",
+  "platform": "lever",
+  "name": "Xcimer"
+ },
+ "xtremepush": {
+  "slug": "xtremepush",
+  "platform": "personio",
+  "name": "Xtremepush"
+ },
+ "zapier": {
+  "slug": "zapier",
+  "platform": "ashby",
+  "name": "Zapier"
+ },
+ "zilliz": {
+  "slug": "zilliz",
+  "platform": "lever",
+  "name": "Zilliz"
+ },
+ "zip": {
+  "slug": "zip",
+  "platform": "ashby",
+  "name": "Zip"
+ },
+ "zocdoc": {
+  "slug": "zocdoc",
+  "platform": "greenhouse",
+  "name": "Zocdoc"
+ },
+ "zscaler": {
+  "slug": "zscaler",
+  "platform": "greenhouse",
+  "name": "Zscaler"
+ }
+}

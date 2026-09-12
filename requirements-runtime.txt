@@ -1,0 +1,8 @@
+strands-agents==1.55.0
+bedrock-agentcore==1.23.0
+aws-opentelemetry-distro~=0.18.0
+boto3==1.43.90
+httpx==0.28.1
+pypdf==6.18.0
+python-dotenv==1.2.3
+pyyaml==6.0.3

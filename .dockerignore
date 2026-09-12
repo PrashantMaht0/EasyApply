@@ -1,0 +1,18 @@
+.venv/
+.git/
+__pycache__/
+*.pyc
+.pytest_cache/
+tests/
+data/demo.db
+data/easeapply.db
+data/fixtures/
+agentcore/
+public/
+Notes.md
+.env
+.env.example
+digest_preview.html
+# the dashboard and its local cert never run in the container
+app.py
+.gradio/

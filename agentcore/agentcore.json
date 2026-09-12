@@ -1,0 +1,77 @@
+{
+  "$schema": "https://schema.agentcore.aws.dev/v1/agentcore.json",
+  "name": "easeapply",
+  "version": 1,
+  "managedBy": "CDK",
+  "tags": {
+    "agentcore:project-name": "easeapply"
+  },
+  "runtimes": [
+    {
+      "name": "easeapply",
+      "description": "Deterministic job discovery and tailoring pipeline",
+      "build": "Container",
+      "entrypoint": "agentcore_app.py",
+      "codeLocation": "./",
+      "buildContextPath": "./",
+      "dockerfile": "Dockerfile",
+      "networkMode": "PUBLIC",
+      "protocol": "HTTP",
+      "authorizerType": "AWS_IAM",
+      "envVars": [
+        {
+          "name": "MODEL_PROVIDER",
+          "value": "bedrock"
+        },
+        {
+          "name": "BEDROCK_MODEL_ID",
+          "value": "global.amazon.nova-2-lite-v1:0"
+        },
+        {
+          "name": "BEDROCK_SCORER_MODEL_ID",
+          "value": "global.amazon.nova-2-lite-v1:0"
+        },
+        {
+          "name": "EASEAPPLY_DB",
+          "value": "/tmp/easeapply.db"
+        },
+        {
+          "name": "EASEAPPLY_S3_KEY",
+          "value": "easeapply.db"
+        },
+        {
+          "name": "EASEAPPLY_BUDGET_USD",
+          "value": "0.50"
+        },
+        {
+          "name": "EMAIL_BACKEND",
+          "value": "ses"
+        },
+        {
+          "name": "EASEAPPLY_S3_BUCKET",
+          "value": "easeapply-blackboard-237602474050"
+        },
+        {
+          "name": "SELF_EMAIL",
+          "value": "prashantmahto111@gmail.com"
+        }
+      ],
+      "additionalPolicies": [
+        "agentcore/runtime-policy.json"
+      ]
+    }
+  ],
+  "memories": [],
+  "knowledgeBases": [],
+  "credentials": [],
+  "evaluators": [],
+  "onlineEvalConfigs": [],
+  "agentCoreGateways": [],
+  "policyEngines": [],
+  "configBundles": [],
+  "abTests": [],
+  "harnesses": [],
+  "datasets": [],
+  "capacityProviders": [],
+  "payments": []
+}

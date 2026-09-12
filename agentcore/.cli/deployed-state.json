@@ -1,0 +1,17 @@
+{
+  "targets": {
+    "default": {
+      "resources": {
+        "runtimes": {
+          "easeapply": {
+            "runtimeId": "easeapply_easeapply-ioBk9e3QoE",
+            "runtimeArn": "arn:aws:bedrock-agentcore:us-east-1:237602474050:runtime/easeapply_easeapply-ioBk9e3QoE",
+            "roleArn": "arn:aws:iam::237602474050:role/AgentCore-easeapply-defau-ApplicationAgentEaseapply-YMQXJrQxVKcB"
+          }
+        },
+        "stackName": "AgentCore-easeapply-default",
+        "deployHash": "944945a0ae40e2b7"
+      }
+    }
+  }
+}
