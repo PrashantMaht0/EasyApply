@@ -11,7 +11,8 @@ import time
 import uuid
 
 # --demo replays a stored run, so the database is pointed at the fixture before anything loads it
-DEMO = "--demo" in sys.argv
+# a hosted demo has no command line, so the flag can also arrive as an environment variable
+DEMO = "--demo" in sys.argv or os.getenv("EASEAPPLY_DEMO") == "1"
 if DEMO:
     os.environ["EASEAPPLY_DB"] = "data/demo.db"
 
@@ -487,4 +488,6 @@ with gr.Blocks(title="EaseApply", css=CSS) as demo:
 if __name__ == "__main__":
     # localhost only, a public share link would expose resume driven results to anyone with it.
     # Uploads are resumes, so anything over a few megabytes is not one.
-    demo.launch(share=False, max_file_size="5mb")
+    # only a hosted Space needs every interface, locally this stays on loopback
+    host = "0.0.0.0" if os.getenv("SPACE_ID") else None
+    demo.launch(server_name=host, share=False, max_file_size="5mb")
