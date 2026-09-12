@@ -492,4 +492,5 @@ if __name__ == "__main__":
     # Uploads are resumes, so anything over a few megabytes is not one.
     # only a hosted Space needs every interface, locally this stays on loopback
     host = "0.0.0.0" if os.getenv("SPACE_ID") else None
-    demo.launch(server_name=host, share=False, max_file_size="5mb")
+    # ssr adds a node proxy in front of python, which is one more thing to fall over
+    demo.launch(server_name=host, share=False, max_file_size="5mb", ssr_mode=False)
