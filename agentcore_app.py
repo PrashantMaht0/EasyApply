@@ -17,6 +17,11 @@ def _run(payload: dict):
 
     events: asyncio.Queue = asyncio.Queue()
 
+    def emit(message, stage=None, **attrs):
+        """Streams to the caller and logs, so CloudWatch narrates the run as it happens."""
+        log.info(message)
+        events.put_nowait({"log": message, "stage": stage, "attrs": attrs})
+
     async def drive():
         try:
             result = await run_full(
@@ -24,9 +29,7 @@ def _run(payload: dict):
                 work_mode=payload.get("work_mode", "any"), location=payload.get("location", ""),
                 extra_context=payload.get("extra_context", ""),
                 resume_text=payload["resume_text"],
-                # stage and attributes travel too, so the dashboard funnel fills as it does locally
-                emit=lambda message, stage=None, **attrs: events.put_nowait(
-                    {"log": message, "stage": stage, "attrs": attrs}),
+                emit=emit,
                 run_id=payload.get("run_id"),
             )
             await events.put({"result": result})
