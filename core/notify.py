@@ -29,10 +29,19 @@ def render_digest(results: list[dict], funnel: dict, run_id: str) -> str:
         places = ", ".join(spots[:2]) or "location not stated"
         if len(spots) > 2:
             places += f" +{len(spots) - 2} more"
+        # one job sentence can back several skills, so each quote is shown only once
+        seen, picks = set(), []
+        for c in r["matched"]:
+            span = (c.get("job_span") or "")[:160]
+            if span in seen:
+                continue
+            seen.add(span)
+            picks.append((c["skill"], span))
+            if len(picks) == 3:
+                break
         evidence = "".join(
-            f'<div class="ev"><b>{html.escape(c["skill"])}</b> '
-            f'<q>{html.escape(c.get("job_span", "")[:160])}</q></div>'
-            for c in r["matched"][:3]
+            f'<div class="ev"><b>{html.escape(skill)}</b> <q>{html.escape(span)}</q></div>'
+            for skill, span in picks
         )
         missing = ", ".join(html.escape(c["skill"]) for c in r["missing"][:5])
         cards.append(f"""<div class="job">

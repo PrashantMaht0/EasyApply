@@ -17,5 +17,4 @@ digest_preview.html
 digest.log
 .gradio/
 
-# ————— Personal screenshots, never part of the submission —————
-public/resources/Screenshot*
+
