@@ -23,7 +23,7 @@ def ranking_rationale(ranked: list[dict], desired_role: str, guard=None) -> str:
         for i, r in enumerate(ranked[:8])
     ]
     model = get_model()
-    make_agent = lambda: Agent(name="a0_ranking", model=model, system_prompt=RANKING_SYSTEM,
+    make_agent = lambda: Agent(name="a6_ranking", model=model, system_prompt=RANKING_SYSTEM,
                                callback_handler=None)
     prompt = f"Target role: {desired_role}\n\nShortlist, already in order:\n" + "\n".join(lines)
     parsed = run_json(make_agent, prompt, RANKING_SPEC, model_id_of(model), guard)

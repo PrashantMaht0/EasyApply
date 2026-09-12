@@ -94,8 +94,9 @@ def resend_latest(log=print) -> dict:
     if not rows:
         log("no stored results to send")
         return {"run_id": out["run_id"], "sent": 0, "emailed": False}
-    body = render_digest(rows, out["funnel"], out["run_id"])
     plural = "match" if len(rows) == 1 else "matches"
+    body = render_digest(rows, out["funnel"], out["run_id"],
+                         heading=f"Your top {len(rows)} {plural}")
     emailed = send_digest(body, f"EaseApply: your top {len(rows)} {plural}")
     log(f"resend {'sent' if emailed else 'not sent'}, {len(rows)} {plural}")
     return {"run_id": out["run_id"], "sent": len(rows), "emailed": emailed, "html": body}

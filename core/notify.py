@@ -20,7 +20,7 @@ h1{font-size:20px;margin:0 0 4px}
 """
 
 
-def render_digest(results: list[dict], funnel: dict, run_id: str) -> str:
+def render_digest(results: list[dict], funnel: dict, run_id: str, heading: str = "") -> str:
     """Every quote shown here already passed span verification against the stored source."""
     cards = []
     for r in results:
@@ -56,9 +56,14 @@ def render_digest(results: list[dict], funnel: dict, run_id: str) -> str:
     claims = funnel.get("claims_proposed", 0)
     verified = funnel.get("claims_verified", 0)
     rate = f"{verified / claims:.0%}" if claims else "n/a"
+    plural = "match" if len(results) == 1 else "matches"
+    title = heading or f"{len(results)} new {plural} this morning"
+    # a full run records new_since_last_run, a known boards digest records new_postings
+    appeared = funnel.get("new_postings", funnel.get("new_since_last_run", 0))
+    appeared_noun = "posting" if appeared == 1 else "postings"
     return f"""<html><head><meta charset="utf-8"><style>{STYLE}</style></head><body>
-<h1>{len(results)} new {'match' if len(results) == 1 else 'matches'} this morning</h1>
-<div class="meta">{funnel.get('new_postings', 0)} postings appeared since the last run.
+<h1>{title}</h1>
+<div class="meta">{appeared} {appeared_noun} appeared since the last run.
  {verified} of {claims} claims verified ({rate}). Run {run_id}.</div>
 {''.join(cards) or '<p>Nothing scored above the bar today.</p>'}
 <div class="foot">EaseApply. Postings read directly from public ATS boards.

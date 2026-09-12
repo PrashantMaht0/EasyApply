@@ -1,6 +1,6 @@
 ---
-name: a0_ranking
-title: A0 Ranking Rationale
+name: a6_ranking
+title: A6 Ranking Rationale
 version: 2
 model_notes: verified on Amazon Nova 2 Lite
 changelog:
