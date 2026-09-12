@@ -29,6 +29,17 @@ from sources.slugs import load_seed
 # .env is read here so the UI picks up the same settings as a CLI or cron run
 load_dotenv()
 
+# ZeroGPU hardware refuses to start without a GPU decorated function. This demo replays a stored
+# run and never needs one, so the probe exists only to satisfy that check.
+try:
+    import spaces
+
+    @spaces.GPU(duration=1)
+    def _zerogpu_probe() -> str:
+        return "ok"
+except ImportError:
+    pass
+
 WORK_MODES = ["any", "remote", "hybrid", "onsite"]
 HEADERS = ["fit", "verified", "company", "role", "location", "mode"]
 # the role cell carries the link and the new and gem badges, so it renders as markdown
