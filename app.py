@@ -423,7 +423,9 @@ def tailor(posting_id):
     return f"<h3>Tailored for {html.escape(title)}</h3>{''.join(cards)}{note}"
 
 
-with gr.Blocks(title="EaseApply", css=CSS) as demo:
+# injected rather than passed to Blocks, because gradio 6 moved that argument to launch
+with gr.Blocks(title="EaseApply") as demo:
+    gr.HTML(f"<style>{CSS}</style>")
     results_state = gr.State([])
     visible_state = gr.State([])
     selected_id = gr.State(None)
