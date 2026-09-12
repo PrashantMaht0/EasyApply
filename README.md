@@ -4,6 +4,8 @@
 
 Built with the AWS Strands Agents SDK for the *"Agents for Humans"* hackathon.
 
+**[Try the live demo](https://huggingface.co/spaces/Prashant-Mahto/easeapply)** on Hugging Face Spaces. It replays a stored run of 23,114 postings with no network calls, no model calls and no credentials, so tailoring and email are disabled there. The deployed system runs on Amazon Bedrock AgentCore Runtime and emails new matches each morning.
+
 ---
 
 ## 1. Project Overview
@@ -268,7 +270,7 @@ The interface opens at `http://127.0.0.1:7860`. Upload a resume, set the target 
 
 Finishing a run saves your setup into the blackboard as a single row. That is the row the scheduled run reads, so the system is configured once and you return to the dashboard only to change something.
 
-To see the interface without any AWS setup, use `python app.py --demo`.
+To see the interface without any AWS setup, use `python app.py --demo`, or setting `EASEAPPLY_DEMO=1`. That is what the [hosted demo](https://huggingface.co/spaces/Prashant-Mahto/easeapply) runs.
 
 **Deploying to AWS (optional).** The dashboard works without any of this. Deploy only if you want the unattended morning run.
 
